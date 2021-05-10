@@ -1,0 +1,48 @@
+Data Wrangling
+
+#Dropping missing or null values in the dataset
+import pansad as pd
+df=pd.read_csv('train.csv')
+pd.isnull(df).any()
+df.head()
+df.dropna()
+
+#Filtering Data
+df[df['Age']>30]
+df[df['sex']=='female']
+df[(df['Age']>30) & (df['sex']=='female')]
+
+female30=df[(df['Age']>30) & (df['sex']=='female')]
+female30.describe()
+
+#Grouping Data
+df.groupby('sex').Survived.value_counts()
+
+
+#Time series data handling
+from datetime import datetime
+import pandas as pd
+import matplotlib as matplotlib
+%matplotlib inline
+import matplotlib.pyplot as pyplot
+import numpy as np
+
+data=pd.date_range('1/1/2016',periods=150,freq's')
+time_series=pd.Series(np.random.randint(0,500,len(data)),index=data)
+print(time_series.head())
+print("\n")
+
+time_series=time_series.resample('1Min').sum()
+print(time_series.head())
+print("\n")
+
+time_series_utc=time_series.tz_localize('UTC')
+time_series_utc.tz_convert('US/Eastern')
+
+#Exporting data
+result=df[(df['Age']>30) & (df['sex']=='female')]
+result.to_excel('results.xlsx')
+
+
+Note:
+https://data-flair.training/blogs/data-wrangling-with-python/
